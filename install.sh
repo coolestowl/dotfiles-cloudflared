@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-curl -SOL https://github.com/cloudflare/cloudflared/releases/download/2025.11.1/cloudflared-linux-amd64
+curl -SOL https://github.com/cloudflare/cloudflared/releases/download/2026.3.0/cloudflared-linux-amd64
 
 chmod +x cloudflared-linux-amd64
 
