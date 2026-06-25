@@ -6,9 +6,6 @@ chmod +x cloudflared-linux-amd64
 
 mv cloudflared-linux-amd64 ~/.local/bin/cloudflared
 
-# export GIT_SSH_COMMAND="$GIT_SSH_COMMAND -o ProxyCommand='cloudflared access ssh --hostname %h'"
-
-cat << EOF >> ~/.bashrc
+grep -qF "GIT_SSH_COMMAND" ~/.bashrc || cat << EOF >> ~/.bashrc
 export GIT_SSH_COMMAND="$GIT_SSH_COMMAND -o ProxyCommand='cloudflared access ssh --hostname %h'"
 EOF
-
