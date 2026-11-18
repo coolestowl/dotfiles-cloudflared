@@ -1,6 +1,23 @@
 #!/usr/bin/env bash
 
-curl -SOL https://github.com/cloudflare/cloudflared/releases/download/2026.3.0/cloudflared-linux-amd64
+set -e
+
+latest_release_url="$(curl -fsSLI -o /dev/null -w '%{url_effective}' \
+  https://github.com/cloudflare/cloudflared/releases/latest)"
+
+case "$latest_release_url" in
+  https://github.com/cloudflare/cloudflared/releases/tag/?*)
+    latest_version="${latest_release_url##*/}"
+    ;;
+  *)
+    printf 'Failed to resolve the latest cloudflared release: %s\n' "$latest_release_url" >&2
+    exit 1
+    ;;
+esac
+
+printf 'Downloading cloudflared %s\n' "$latest_version"
+curl -fSL -o cloudflared-linux-amd64 \
+  "https://github.com/cloudflare/cloudflared/releases/download/${latest_version}/cloudflared-linux-amd64"
 
 chmod +x cloudflared-linux-amd64
 
